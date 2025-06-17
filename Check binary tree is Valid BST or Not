@@ -1,0 +1,56 @@
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+
+    TreeNode(int value) {
+        val = value;
+        left = right = NULL;
+    }
+};
+
+//Complete Code 
+#include <iostream>
+#include <climits>
+using namespace std;
+
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+
+    TreeNode(int value) {
+        val = value;
+        left = right = NULL;
+    }
+};
+
+bool isValidBST(TreeNode* root, long long minVal, long long maxVal) {
+    if (root == NULL) return true;
+
+    if (root->val <= minVal || root->val >= maxVal) return false;
+
+    return isValidBST(root->left, minVal, root->val) &&
+           isValidBST(root->right, root->val, maxVal);
+}
+
+bool checkBST(TreeNode* root) {
+    return isValidBST(root, LLONG_MIN, LLONG_MAX);
+}
+
+int main() {
+    TreeNode* root = new TreeNode(10);
+    root->left = new TreeNode(5);
+    root->right = new TreeNode(15);
+    root->left->left = new TreeNode(2);
+    root->left->right = new TreeNode(7);
+    root->right->right = new TreeNode(20);
+
+    if (checkBST(root)) {
+        cout << "Yes, it's a valid BST.";
+    } else {
+        cout << "No, it's NOT a valid BST.";
+    }
+
+    return 0;
+}
